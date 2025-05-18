@@ -6,65 +6,135 @@
 %\usepackage[german]{babel}
 \usepackage{german}
 \usepackage[utf8]{inputenc}       %% deutsche Umlaute wie normale
-                             %% Buchstaben verwenden
-                             %% (ansonsten muesste durch "a getippt werden)
 \usepackage{url}
 \newcommand{\urlBiBTeX}[1]{\url{#1}}
-% Seiten-Layout
-% Mit diesen Kommandos werde die Rï¿½der auf dem Papier
-% festgelegt. Dies wurde 1:1 bernommen.
+\usepackage[colorlinks=true, linkcolor=black, citecolor=red, urlcolor=blue]{hyperref}
 
-\setlength{\textwidth}{6.5in}            % Textbreite
+% Seiten-Layout
+\setlength{\textwidth}{6.5in}     % Textbreite
 \setlength{\hoffset}{0in}
 \setlength{\voffset}{0in}
-%\setlength{\evensidemargin}{-.0in}
-\setlength{\textheight}{9in}          % Texthï¿½e 
-\setlength{\topmargin}{-0.2in}           % oberer Rand
-\setlength{\oddsidemargin}{+.1cm}     % linker Rand
-%\setlength{\marginparwidth}{-0.6cm}    % rechter Rand
+\setlength{\textheight}{9in}      % Texthöhe 
+\setlength{\topmargin}{-0.2in}    % oberer Rand
+\setlength{\oddsidemargin}{+.1cm} % linker Rand
 
 \setlength\parskip{\medskipamount}
 \setlength\parindent{0pt}
 \thispagestyle{empty}
+
 \begin{document}
 \begin{center}
-\scalebox{0.9}{\includegraphics{header_hwr.eps}}
+  \scalebox{0.9}{\includegraphics{header_hwr.eps}}
 \end{center}
 
 \vspace{0.6cm}
 \begin{center}
-\begin{LARGE}Seminar \\ \end{LARGE}
-\vspace{0.2cm}
-\begin{LARGE}Aktuelle Themen des Hardwareentwurfs \\ \end{LARGE}
-\vspace{2.9cm}
-\begin{LARGE}\textbf{Dein Thema }\\ \end{LARGE}
-\vspace{2.9cm}
-\begin{LARGE}Dein Name \\ \end{LARGE}
-\vspace{10.2cm}
-\begin{large}Sommersemester 2008\\ \end{large}
-
-
+  {\LARGE Masterarbeit}\\[2.9cm]
+  {\LARGE\textbf{Auf dem Weg zum autonom fahrenden Fahrrad: Eine videogestützte Regelung des Weges mit Webbots}}\\[2.9cm]
+  {\LARGE Amine Karabila}\\[10.2cm]
+  {\large Wintersemester 2025}
 \end{center}
-\vspace{0.4cm}\ \\
+
+\vspace{0.4cm}
+
+\newpage
+\section*{Abstract}
+\addcontentsline{toc}{section}{Zusammenfassung}
+
+Diese Masterarbeit befasst sich mit der Simulation eines selbstbalancierenden Fahrrads unter Verwendung des Simulationsprogramms V-REP (VBOTS) in Kombination mit MATLAB. Ziel ist es, zwei Regelungsansätze zu implementieren und zu analysieren:
+
+\begin{itemize}
+  \item Ein PID-Regler, basierend auf der Arbeit eines Bachelorabsolventen, der klassische Regelungstechniken zur Stabilisierung nutzt.
+  \item Ein modellprädiktiver Regler (Model Predictive Control, MPC), der auf Kameradaten eines YOLO-Modells zurückgreift, um Fahrbahnwege zu erkennen und die Fahrtrichtung aus Videobildern zu extrahieren.
+\end{itemize}
+
+Die Kombination dieser beiden Regelungen zielt darauf ab, die Vorteile beider Ansätze zu nutzen und eine möglichst realistische Simulation des selbstbalancierenden Fahrrads zu erreichen. Durch die Integration von Bildverarbeitung und fortschrittlicher Regelungstechnik soll ein Beitrag zur Weiterentwicklung autonomer Zweiradsysteme geleistet werden.
+
+\addcontentsline{toc}{section}{Abstract}
+
+This master's thesis focuses on the simulation of a self-balancing bicycle using the simulation program V-REP (VBOTS) in combination with MATLAB. The aim is to implement and analyze two control approaches:
+
+\begin{itemize}
+  \item A PID controller, based on the work of a bachelor's graduate, utilizing classical control techniques for stabilization.
+  \item A model predictive controller (Model Predictive Control, MPC) that leverages camera data from a YOLO model to detect bike paths and extract the riding direction from video images.
+\end{itemize}
+
+The combination of these two control strategies aims to harness the advantages of both approaches to achieve a highly realistic simulation of the self-balancing bicycle. By integrating image processing and advanced control techniques, this work seeks to contribute to the advancement of autonomous two-wheeled systems.
+
 \newpage
 \tableofcontents
+
 \newpage
+\twocolumn
 
 \section{Einleitung}
-Hier ist die Einleitung, es wird z.B. so eine Literaturangabe eingebunden \cite{halbleiter}. Die Abbildung \ref{pic_einfuehrung} ist als Beispiel eingebunden, wie man ein Bild in das Dokument einfügt.
-\begin{figure}[htb]
-	\begin{center}
-	\scalebox{0.8}{\includegraphics{Einfuehrung.eps}}
-		\caption{Schnittstelle "`Digitales System / Umwelt"'}
-	\label{pic_einfuehrung}
-	\end{center}
-\end{figure}
 
-\section{Zusammenfassung}
+Die Entwicklung selbstbalancierender Fahrräder stellt eine anspruchsvolle Aufgabe im Bereich der Regelungstechnik dar, da sie die Stabilisierung eines instabilen Systems in Echtzeit erfordert. Ziel dieser Arbeit ist die realitätsnahe Simulation eines solchen Fahrrads mithilfe des Simulationsprogramms V-REP (VBOTS) in Kombination mit MATLAB. Dabei werden zwei unterschiedliche Regelungsansätze implementiert und analysiert:
 
+\begin{itemize}
+  \item Ein PID-Regler, basierend auf der Arbeit eines Bachelorabsolventen, der klassische Regelungstechniken zur Stabilisierung nutzt.
+  \item Ein modellprädiktiver Regler (Model Predictive Control, MPC), der auf Kameradaten eines YOLO-Modells zurückgreift, um Fahrbahnwege zu erkennen und die Fahrtrichtung aus Videobildern zu extrahieren.
+\end{itemize}
 
-\bibliographystyle{unsrt}
+Die Kombination dieser beiden Regelungen zielt darauf ab, die Vorteile beider Ansätze zu nutzen und eine möglichst realistische Simulation des selbstbalancierenden Fahrrads zu erreichen. Durch die Integration von Bildverarbeitung und fortschrittlicher Regelungstechnik soll ein Beitrag zur Weiterentwicklung autonomer Zweiradsysteme geleistet werden.
 
 
+\section{Webots – Aufbau, Funktionsweise und Einsatz im Projektkontext}
+
+Die Open-Source-Software Webots ist ein Simulationsprogramm zur realitätsnahen Modellierung und Steuerung von Robotern in virtuellen 3D-Umgebungen. Webots wird in Industrie, Lehre und Forschung eingesetzt und bietet eine vollständige Entwicklungsumgebung, um Roboter sowie deren Umgebung zu modellieren, zu programmieren und zu simulieren. Entwickelt wurde Webots ursprünglich 1996 am EPFL und wird seit 1998 von Cyberbotics kontinuierlich weiterentwickelt. Im Dezember 2018 wurde Webots unter der Apache-2.0 Lizenz als Open Source freigegeben, wodurch es eine aktive Entwicklergemeinschaft mit regelmäßigen Beiträgen und Aktualisierungen gibt (über 100 Mitwirkende auf GitHub). Im Folgenden werden die Grundstruktur von Webots, das Open-Source-Projekt, die API-Schnittstellen (insbesondere zu MATLAB und ROS) sowie spezifische Aspekte wie Kamerasensorik, Physik-Engine und Echtzeitfähigkeit erläutert. Dabei wird jeweils der Kontext eines selbstbalancierenden, autonom fahrenden Fahrrads hervorgehoben, um die Relevanz für das vorliegende Projekt deutlich zu machen.
+
+
+\subsection{Grundlegende Merkmale und Struktur von Webots}
+Ein Webots-Simulationsprojekt besteht aus mehreren zentralen Komponenten. Welt-Dateien (Dateiendung .wbt)
+definieren die virtuelle Umgebung samt \cite{webotsGithub} Roboterinstanzen und Objekten. In einer solchen World werden alle 
+Objekte hierarchisch beschrieben, inklusive ihrer Position, Orientierung, Geometrie, visuellen Eigenschaften
+(Farbe, Textur) und physikalischen Parameter (Masse, Reibung, etc.). Eine Welt kann mehrere Roboter enthalten
+und referenziert deren jeweilige Controller-Programme – sie enthält jedoch nicht den Quellcode der Controller selbst, 
+sondern nur den Namen des zu startenden Controllers je Roboter. Webots-Weltdateien verwenden ein textbasiertes Format 
+(früher VRML-ähnlich, seit R2025a auf W3D/X3D basierend), das bei Bedarf externe Robotermodelle einbindet. Solche Robotermodelle
+werden häufig als PROTO-Dateien (.proto) realisiert. Eine PROTO-Datei ist ein wiederverwendbarer Vorlagendefinitionsdatei für Roboter
+oder Objekte mit parametrierbaren Eigenschaften. Im .wbt-Szenario kann man also statt eines vollständigen Roboters nur eine 
+PROTO-Instanz referenzieren – das erlaubt eine modulare Strukturierung. Die Weltdatei kann auf mehrere PROTOs und Ressourcendateien 
+(Texturen, Meshes) zurückgreifen, was die Simulationsszenen flexibel erweiterbar macht.
+
+\vspace{0.2cm}
+
+Jeder Roboter in Webots wird durch einen eigenen Controller-Prozess gesteuert. Ein Controller ist ein Programm, 
+das die Sensoren ausliest und Aktuatoren des Roboters steuert, Webots unterstützt hierfür mehrere Programmiersprachen:
+C, C++, Python, Java sowie MATLAB®. Beim Start der Simulation wird für jeden Roboterprozess der angegebene Controller
+gestartet und mit dem entsprechenden Roboternode verknüpft. Mehrere Roboter können zwar dasselbe Controller-Programm nutzen,
+laufen aber jeweils in separaten Prozessen, um parallele Abläufe zu ermöglichen. Die Wahl der Programmiersprache beeinflusst
+die Handhabung: C/C++ Controller werden vorab zu nativen Binärprogrammen kompiliert, während Python- und MATLAB-Controller zur 
+Laufzeit von den jeweiligen Interpreterumgebungen ausgeführt werden. Java-Controller stellen einen Sonderfall dar 
+(Kompilierung zu Bytecode und Ausführung in der JVM). In der Praxis bedeutet dies, dass Webots z.B. einen Python-Controller
+mit dem installierten Python-Interpreter startet oder einen MATLAB-Controller über eine MATLAB-Engine ausführt. Im Kontext
+des selbstbalancierenden Fahrrads wurde diese Flexibilität genutzt, indem Regelungsalgorithmen teils in MATLAB entwickelt und
+direkt als Webots-Controller eingebunden wurden. So kann ein PID- oder MPC-Regler im MATLAB-Skript die Balance des simulierten
+Fahrrads steuern, während Webots die Physiksimulation und Sensorik (z.B. Gyro- und Beschleunigungssensoren am Fahrradmodell)
+bereitstellt.
+
+Webots stellt für das Modellieren und Simulieren eine moderne grafische Benutzeroberfläche zur Verfügung, mit der sich Roboter,
+Objekte und Umgebungen interaktiv erstellen und modifizieren lassen. Die Software liefert eine umfangreiche Bibliothek von 
+vordefinierten Robotern, Sensoren, Aktuatoren und Objekten, die über eine Szene-Baum-Struktur verwaltet werden. So sind z.B.
+gängige Forschungsroboter (e-puck, KUKA YouBot, NAO usw.) als PROTO-Modelle bereits vorhanden, was den Einstieg erleichtert. 
+Für eigene Roboter – wie das autonome Fahrrad – kann man entweder ein passendes bestehendes Modell adaptieren oder mittels PROTO 
+und Basis-Nodes (Solid, Joint, Shape etc.) ein eigenes dynamisches Modell aufbauen. Die Standard-Projektstruktur von Webots sieht
+vor, dass alle zugehörigen Dateien in einem Projektordner organisiert sind (typischerweise mit Unterordnern worlds/ für Weltdateien,
+protos/ für PROTO-Definitionen, controllers/ für Controller-Code usw.). Dadurch bleiben komplexe Simulationen übersichtlich und reproduzierbar.
+
+Zusammenfassend bietet Webots alle nötigen Bausteine, um ein komplexes mechatronisches System wie ein selbstfahrendes Fahrrad virtuell 
+abzubilden: Die Weltdatei definiert Gelände und Startbedingungen, PROTO-Modelle beschreiben die Mechanik (Rahmen, Räder, Lenkung, Sensoren)
+und Controller implementieren die Regelungslogik, wobei Webots als Infrastruktur die Sensor-Aktorkopplung in Echtzeit und eine grafische
+3D-Visualisierung sicherstellt.
+
+
+\subsection{Webots als Open-Source-Projekt (GitHub-Repositorium)}
+
+
+\newpage
+\bibliographystyle{plainnat}
 \bibliography{seminar}
+
 \end{document}
+
+
